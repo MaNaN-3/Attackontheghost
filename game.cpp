@@ -1,9 +1,43 @@
 #include"game.hpp"
 #include<iostream>
+#define ghostHeight 70
+#define ghostWidth 70
 
 SDL_Texture* playerTex; 
 SDL_Rect destR;
-Game:: Game(){count=0; countY=0;};
+Game:: Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen){
+    countX=0; countY=0;
+    countZ=0;
+    windowWidth=width; windowHeight=height;
+        // cout<<"hehe";
+        cout<<windowWidth << " "<<windowHeight<<endl;
+    int flag=0;
+    if(fullscreen){
+        flag=SDL_WINDOW_FULLSCREEN;
+    }
+    if(SDL_Init(SDL_INIT_EVERYTHING)==0){
+        cout<<"SDL is initialised\n";
+
+        window=SDL_CreateWindow(title,positionX,positionY,width,height,flag);
+        renderer=SDL_CreateRenderer(window,-1,0);
+        SDL_SetRenderDrawColor(renderer,255,255,0,255); 
+        isRunning=true;
+    }
+    else{
+        isRunning=false;
+    };
+
+    SDL_Surface* tmpSurface;
+    if(countY%2==0)
+        tmpSurface=IMG_Load("ghost1.png");
+    else
+        tmpSurface=IMG_Load("ghost.png");
+    playerTex=SDL_CreateTextureFromSurface(renderer,tmpSurface);
+    SDL_FreeSurface(tmpSurface);
+
+
+    
+}
 Game:: ~Game(){};
 
 void Game::init(const char * title,int positionX,int positionY,int width,int height,bool fullscreen){
@@ -60,26 +94,25 @@ bool Game::running(){
 }
 
 void Game::update(){
-    // SDL_Delay(10);
-    count++;
-    // if(count>600)
-    //     count=0;
-    destR.h=100;
-    destR.w=100;
-    // county++;
-    if(count>250){
-        count=0;
+    countX+=2;
+    countY++;
+    destR.h=ghostHeight;
+    destR.w=ghostWidth;
+    if(countX >windowWidth/2-ghostWidth){
+        countX=0;
+        countY=0;
     }
-    destR.x=count;
-    destR.y=count;
-    cout<<count<<endl;
-    
+    destR.x=countX;
+    destR.y=countY;
+    // cout<<count<<endl;
+
     SDL_Surface* tmpSurface;
-    countY=count/10;
-    if(countY%2==0)
+    countZ=countY/10;
+    if(countZ%2==0)
         tmpSurface=IMG_Load("ghost1.png");
     else
         tmpSurface=IMG_Load("ghost.png");
     playerTex=SDL_CreateTextureFromSurface(renderer,tmpSurface);
     SDL_FreeSurface(tmpSurface);
+    SDL_Delay(4);
 }

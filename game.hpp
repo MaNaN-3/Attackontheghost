@@ -9,10 +9,11 @@ class Game{
     bool isRunning;
     SDL_Window* window;
     SDL_Renderer *renderer;
-    int count,countY;
+    int countX,countY,countZ;
+    int windowWidth,windowHeight;
 
     public:
-        Game();
+        Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen);
 
         void init(const char * title,int positionX,int positionY,int width,int height,bool fullscreen);
 
