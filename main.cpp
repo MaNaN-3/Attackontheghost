@@ -16,11 +16,7 @@ int main(){
     Uint32 frameStart;
     int frameTime;
 
-    // game->init("manan",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1920,1080,1);
-
-    // cout<<"hehe";
     while(game->running()){
-        // cout<<"hehe";
         frameStart=SDL_GetTicks();
         game->eventHandler();
         game->update();
@@ -30,6 +26,5 @@ int main(){
             SDL_Delay(frameDelay-frameTime);
         }
     }
-    // game->clean();
     return 0;
 }

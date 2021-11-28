@@ -1,20 +1,21 @@
 #include"game.hpp"
+#include "Ghost.hpp"
+#include "SinGhost.hpp"
 #include<iostream>
 #define ghostHeight 70
 #define ghostWidth 70
 
 SDL_Texture* playerTex; 
 SDL_Rect destR;
+SinGhost *g;
 Game:: Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen){
-    countX=0; countY=0;
-    countZ=0;
     windowWidth=width; windowHeight=height;
-        // cout<<"hehe";
-        cout<<windowWidth << " "<<windowHeight<<endl;
+    cout<<windowWidth << " "<<windowHeight<<endl;
     int flag=0;
     if(fullscreen){
         flag=SDL_WINDOW_FULLSCREEN;
     }
+
     if(SDL_Init(SDL_INIT_EVERYTHING)==0){
         cout<<"SDL is initialised\n";
 
@@ -23,59 +24,24 @@ Game:: Game(const char * title,int positionX,int positionY,int width,int height,
         SDL_SetRenderDrawColor(renderer,255,255,0,255); 
         isRunning=true;
     }
+
     else{
         isRunning=false;
-    };
+    };  
 
-    SDL_Surface* tmpSurface;
-    if(countY%2==0)
-        tmpSurface=IMG_Load("ghost1.png");
-    else
-        tmpSurface=IMG_Load("ghost.png");
-    playerTex=SDL_CreateTextureFromSurface(renderer,tmpSurface);
-    SDL_FreeSurface(tmpSurface);
-
-
-    
+    g = new SinGhost(0,360,70,70,"images/ghost.png",3.5,renderer);
 }
 Game:: ~Game(){};
 
-void Game::init(const char * title,int positionX,int positionY,int width,int height,bool fullscreen){
-
-    // cout<<"hehe";
-    int flag=0;
-    if(fullscreen){
-        flag=SDL_WINDOW_FULLSCREEN;
-    }
-    if(SDL_Init(SDL_INIT_EVERYTHING)==0){
-        cout<<"SDL is initialised\n";
-
-        window=SDL_CreateWindow(title,positionX,positionY,width,height,flag);
-        renderer=SDL_CreateRenderer(window,-1,0);
-        SDL_SetRenderDrawColor(renderer,255,255,0,255); 
-        isRunning=true;
-    }
-    else{
-        isRunning=false;
-    };
-
-    SDL_Surface* tmpSurface;
-    if(countY%2==0)
-        tmpSurface=IMG_Load("ghost1.png");
-    else
-        tmpSurface=IMG_Load("ghost.png");
-    playerTex=SDL_CreateTextureFromSurface(renderer,tmpSurface);
-    SDL_FreeSurface(tmpSurface);
-
-
-}
 void Game::render(){
+
     SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer,playerTex,NULL,&destR);
+    g->render();
     SDL_RenderPresent(renderer);
 }
 
 void Game::eventHandler(){
+
     SDL_Event event;
     SDL_PollEvent(&event);
     switch(event.type){
@@ -87,6 +53,7 @@ void Game::eventHandler(){
         default:
             break;
     }
+
 }
 
 bool Game::running(){
@@ -94,25 +61,7 @@ bool Game::running(){
 }
 
 void Game::update(){
-    countX+=2;
-    countY++;
-    destR.h=ghostHeight;
-    destR.w=ghostWidth;
-    if(countX >windowWidth/2-ghostWidth){
-        countX=0;
-        countY=0;
-    }
-    destR.x=countX;
-    destR.y=countY;
-    // cout<<count<<endl;
-
-    SDL_Surface* tmpSurface;
-    countZ=countY/10;
-    if(countZ%2==0)
-        tmpSurface=IMG_Load("ghost1.png");
-    else
-        tmpSurface=IMG_Load("ghost.png");
-    playerTex=SDL_CreateTextureFromSurface(renderer,tmpSurface);
-    SDL_FreeSurface(tmpSurface);
-    SDL_Delay(4);
+    g->update();
+    g->animate("ghost.png","ghost1.png");
+    
 }
