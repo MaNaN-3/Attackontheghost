@@ -22,5 +22,5 @@ class Ghost
         float get_xvel(){ return x_vel; }
         void render();
         virtual void update();
-        void animate(const char* image1="ghost1.png",const char* image2="ghost.png");
+        virtual void animate(const char* image1="ghost1.png",const char* image2="ghost.png");
 };
