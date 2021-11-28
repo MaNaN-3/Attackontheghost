@@ -8,6 +8,7 @@
 SDL_Texture* playerTex; 
 SDL_Rect destR;
 SinGhost *g;
+Ghost *g1;
 Game:: Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen){
     windowWidth=width; windowHeight=height;
     cout<<windowWidth << " "<<windowHeight<<endl;
@@ -30,13 +31,14 @@ Game:: Game(const char * title,int positionX,int positionY,int width,int height,
     };  
 
     g = new SinGhost(0,360,70,70,"images/ghost.png",3.5,renderer);
+    g1 = g;
 }
 Game:: ~Game(){};
 
 void Game::render(){
 
     SDL_RenderClear(renderer);
-    g->render();
+    g1->render();
     SDL_RenderPresent(renderer);
 }
 
@@ -61,7 +63,7 @@ bool Game::running(){
 }
 
 void Game::update(){
-    g->update();
-    g->animate("ghost.png","ghost1.png");
+    g1->update();
+    g1->animate("ghost.png","ghost1.png");
     
 }
