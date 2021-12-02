@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/manan/Desktop/Attackontheghost'
+g++ -o  play game.cpp game.hpp Ghost.cpp Ghost.hpp main.cpp SinGhost.cpp SinGhost.hpp `pkg-config --cflags --libs sdl2` -lSDL2_image
+make: Leaving directory '/home/manan/Desktop/Attackontheghost'
+ 
