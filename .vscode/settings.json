@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.html": "html",
         "bit": "cpp",
         "*.tcc": "cpp",
         "bitset": "cpp",
@@ -11,6 +12,8 @@
         "mutex": "cpp",
         "shared_mutex": "cpp",
         "streambuf": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp"
     }
 }
