@@ -11,7 +11,7 @@ SinGhost::SinGhost(float x, float y,int height,int width,string image,float x_ve
 
 void SinGhost::update()
 {
-    x+=x_vel;  y=400+200*sin(2*(2 * acos(0.0))*x/500);
+    x+=x_vel;  y=400+200*sin(2*(2 * acos(0.0))*(x-200)/500);
     cout<<x<<" "<<y<<endl;
     destR.h=height; destR.w=width;
     destR.x=x; destR.y=y;

@@ -1,6 +1,7 @@
 #include"game.hpp"
 #include "Ghost.hpp"
 #include "SinGhost.hpp"
+#include "Player.hpp"
 #include<iostream>
 #define ghostHeight 70
 #define ghostWidth 70
@@ -9,6 +10,7 @@ SDL_Texture* playerTex;
 SDL_Rect destR;
 SinGhost *g;
 Ghost *g1;
+Player *p;
 Game:: Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen){
     windowWidth=width; windowHeight=height;
     cout<<windowWidth << " "<<windowHeight<<endl;
@@ -32,6 +34,7 @@ Game:: Game(const char * title,int positionX,int positionY,int width,int height,
 
     g = new SinGhost(0,360,70,70,"images/ghost.png",3.5,renderer);
     g1 = g;
+    p = new Player(880,460,80,80,"ghost.png",renderer);
 }
 Game:: ~Game(){};
 
@@ -39,6 +42,7 @@ void Game::render(){
 
     SDL_RenderClear(renderer);
     g1->render();
+    p->render();
     SDL_RenderPresent(renderer);
 }
 
@@ -65,5 +69,7 @@ bool Game::running(){
 void Game::update(){
     g1->update();
     g1->animate("ghost.png","ghost1.png");
+    p->update();
+    p->animate("ghost.png");
     
 }
