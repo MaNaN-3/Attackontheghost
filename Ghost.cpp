@@ -11,8 +11,6 @@ Ghost::Ghost(float x, float y,int height,int width,string image,float x_vel,SDL_
     this->height = height;this->width = width;
     this->image = image;
     this->x_vel = x_vel;
-    this->x_vel=(heroX-x)*0.00364;
-    // this->x_vel=3.5;
     this->renderer = renderer;
 }
 
@@ -26,11 +24,10 @@ bool Ghost::update()
     x+=x_vel;  y++;
     destR.h=height; destR.w=width;
     destR.x=x; destR.y=y;
-    if(abs(initialisedX-x)<960)
+    if(abs(heroX-x)<60)
         return true;
-    else{
+    else
         return false;
-    }
 }
 
 void Ghost::animate(const char* image1,const char* image2)

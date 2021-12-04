@@ -21,7 +21,7 @@ void Player::update()
     destR.x = x; destR.y = y;
 }
 
-void Player::animate(const char* image1)
+void Player::animate(const char* image1,const char* image2)
 {
     SDL_Surface* tmpSurface;
     tmpSurface = IMG_Load(image1);

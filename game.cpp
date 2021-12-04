@@ -9,22 +9,24 @@
 
 SDL_Texture* playerTex; 
 SDL_Rect destR;
-SinGhost *g;
-Ghost *g1,*g2,*g3,*g4;
+vector <Ghost*> ghosts;
 Player *p;
 
 
-void Game::hehe(){
+void Game::hehe()
+{
     cout<<"Funck"<<endl;
 }
-void Game::ghostHandler(){
 
-    g1 = new SinGhost(1920,1080,70,70,"ghost1.png",0,renderer);
+void Game::ghostHandler()
+{
+    SinGhost *g = new SinGhost(200,200,70,70,"ghost1.png",5,renderer);
+    ghosts.push_back(g);
     p = new Player(880,460,80,80,"mario.png",renderer);
-
 }
 
-Game:: Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen){
+Game:: Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen)
+{
     windowWidth=width; windowHeight=height;
     cout<<windowWidth << " "<<windowHeight<<endl;
     int flag=0;
@@ -32,61 +34,75 @@ Game:: Game(const char * title,int positionX,int positionY,int width,int height,
         flag=SDL_WINDOW_FULLSCREEN;
     }
 
-    if(SDL_Init(SDL_INIT_EVERYTHING)==0){
+    if(SDL_Init(SDL_INIT_EVERYTHING)==0)
+    {
         cout<<"SDL is initialised\n";
-
         window=SDL_CreateWindow(title,positionX,positionY,width,height,flag);
         renderer=SDL_CreateRenderer(window,-1,0);
         SDL_SetRenderDrawColor(renderer,255,255,0,255); 
         isRunning=true;
     }
 
-    else{
+    else
+    {
         isRunning=false;
-    };  
+    }  
 
     ghostHandler();
 }
+
 Game:: ~Game(){};
 
-void Game::render(){
-
+void Game::render()
+{
     SDL_RenderClear(renderer);
-    if(g1!=NULL)
-    g1->render();
+    for(int i=0;i<ghosts.size();i++)
+    {
+        if(ghosts[i]!=NULL)
+        {
+            ghosts[i]->render();
+        }
+    }
     p->render();
     SDL_RenderPresent(renderer);
 }
 
-void Game::eventHandler(){
-
+void Game::eventHandler()
+{
     SDL_Event event;
     SDL_PollEvent(&event);
-    switch(event.type){
+    switch(event.type)
+    {
         case SDL_QUIT:
             isRunning=false;
             break;
         case SDL_KEYDOWN:
             isRunning=false;
+            break;
         default:
             break;
     }
-
 }
 
-bool Game::running(){
+bool Game::running()
+{
     return isRunning;
 }
 
-void Game::update(){
-    if(g1!=NULL){
-    bool hemlo=g1->update();
-    g1->animate("ghost.png","ghost1.png");
-    if(hemlo=false){
-        g1=NULL;
-    }
+void Game::update()
+{
+    for(int i=0; i<ghosts.size();i++)
+    {
+        if(ghosts[i]!=NULL)
+        {
+            bool hemlo=ghosts[i]->update();
+            ghosts[i]->animate("ghost.png","ghost1.png");
+            if(hemlo==true)
+            {
+                ghosts[i]=NULL;
+            }
+        }
     }
     p->update();
-    p->animate("mario2.png");
-    
+    p->animate();    
 }

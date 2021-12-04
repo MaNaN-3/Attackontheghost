@@ -20,5 +20,5 @@ public:
     int get_width() { return width; }
     void render();
     void update();
-    void animate(const char* image1 = "ghost.png");
+    void animate(const char* image1 = "mario.png",const char* image2 = "mario2.png");
 };
