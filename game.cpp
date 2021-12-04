@@ -5,12 +5,25 @@
 #include<iostream>
 #define ghostHeight 70
 #define ghostWidth 70
+#define heroX 960
 
 SDL_Texture* playerTex; 
 SDL_Rect destR;
 SinGhost *g;
-Ghost *g1;
+Ghost *g1,*g2,*g3,*g4;
 Player *p;
+
+
+void Game::hehe(){
+    cout<<"Funck"<<endl;
+}
+void Game::ghostHandler(){
+
+    g1 = new SinGhost(1920,1080,70,70,"ghost1.png",0,renderer);
+    p = new Player(880,460,80,80,"mario.png",renderer);
+
+}
+
 Game:: Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen){
     windowWidth=width; windowHeight=height;
     cout<<windowWidth << " "<<windowHeight<<endl;
@@ -32,15 +45,14 @@ Game:: Game(const char * title,int positionX,int positionY,int width,int height,
         isRunning=false;
     };  
 
-    g = new SinGhost(0,360,70,70,"images/ghost.png",3.5,renderer);
-    g1 = g;
-    p = new Player(880,460,80,80,"ghost.png",renderer);
+    ghostHandler();
 }
 Game:: ~Game(){};
 
 void Game::render(){
 
     SDL_RenderClear(renderer);
+    if(g1!=NULL)
     g1->render();
     p->render();
     SDL_RenderPresent(renderer);
@@ -67,9 +79,14 @@ bool Game::running(){
 }
 
 void Game::update(){
-    g1->update();
+    if(g1!=NULL){
+    bool hemlo=g1->update();
     g1->animate("ghost.png","ghost1.png");
+    if(hemlo=false){
+        g1=NULL;
+    }
+    }
     p->update();
-    p->animate("ghost.png");
+    p->animate("mario2.png");
     
 }

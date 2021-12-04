@@ -4,8 +4,12 @@
 
 class SinGhost:public Ghost
 {
-    public:
+public:
+        SDL_Surface* tmpSurface;
         SinGhost(float x,float y,int height,int width,string image,float x_vel,SDL_Renderer *renderer);
-        void update();
+        bool update();
         void animate(const char*, const char*);
+//Manan Changes:
+        // void animate(vector<string>);
+        int counter;
 };

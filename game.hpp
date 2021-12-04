@@ -14,6 +14,7 @@ class Game{
     int windowWidth,windowHeight;
 
     public:
+        void ghostHandler();
         Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen);
 
         void init(const char * title,int positionX,int positionY,int width,int height,bool fullscreen);
@@ -23,6 +24,7 @@ class Game{
         void clean();
         void eventHandler();
         bool running();
+        void hehe();
 
         ~Game();
 };

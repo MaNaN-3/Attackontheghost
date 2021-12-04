@@ -13,6 +13,7 @@ Player::Player(float x, float y, int height, int width, string image, SDL_Render
 void Player::render()
 {
     SDL_RenderCopy(renderer, playerTex, NULL, &destR);
+        // SDL_Delay(4);
 }
 void Player::update()
 {
@@ -30,4 +31,5 @@ void Player::animate(const char* image1)
     //}
     playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
     SDL_FreeSurface(tmpSurface);
+
 }

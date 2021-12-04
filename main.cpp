@@ -3,6 +3,8 @@
 
 #define resolutionX 1920
 #define resolutionY 1080
+#define heroX 960
+#define heroY 540
 
 using namespace std;
 

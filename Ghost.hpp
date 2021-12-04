@@ -6,7 +6,7 @@ using namespace std;
 class Ghost
 {
     protected:
-        float x,y;
+        float x,y,initialisedX,initialisedY;
         int height,width;
         string image;
         float x_vel;
@@ -21,6 +21,7 @@ class Ghost
         int get_width(){ return width; }
         float get_xvel(){ return x_vel; }
         void render();
-        virtual void update();
+        virtual bool update();
         virtual void animate(const char* image1="ghost1.png",const char* image2="ghost.png");
+        // virtual void animate(vector<string> hehe);
 };
