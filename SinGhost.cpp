@@ -10,8 +10,18 @@ SinGhost::SinGhost(float x, float y,int height,int width,string image,float x_ve
 }
 
 bool SinGhost::update()
-{
-    x+=x_vel;  y=400+200*sin(2*(2 * acos(0.0))*(x-200)/500);
+{ 
+    if(initialisedX<900)
+    {
+        x+=x_vel;
+        y=initialisedY+((initialisedY-500)/(initialisedX-960))*(x-initialisedX)+100*sin(2*(2 * acos(0.0))*(x)/100);
+    }    
+    else
+    {
+        x-=x_vel;
+        y=initialisedY+((initialisedY-500)/(initialisedX-960))*(x-initialisedX)+100*sin(2*(2 * acos(0.0))*(x)/100);   
+    } 
+        
     destR.h=height; destR.w=width;
     destR.x=x; destR.y=y;
 
