@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     "files.associations": {
         "*.html": "html",
@@ -16,4 +17,22 @@
         "iostream": "cpp",
         "ostream": "cpp"
     }
+=======
+{
+    "files.associations": {
+        "bit": "cpp",
+        "*.tcc": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "condition_variable": "cpp",
+        "algorithm": "cpp",
+        "istream": "cpp",
+        "limits": "cpp",
+        "mutex": "cpp",
+        "shared_mutex": "cpp",
+        "streambuf": "cpp",
+        "thread": "cpp",
+        "ostream": "cpp"
+    }
+>>>>>>> b5ca5d4f23a7af9945d2eb8185a5af0730f24252
 }
