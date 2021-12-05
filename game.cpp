@@ -20,8 +20,13 @@ void Game::hehe()
 
 void Game::ghostHandler()
 {
-    SinGhost *g = new SinGhost(200,200,70,70,"ghost1.png",5,renderer);
-    ghosts.push_back(g);
+    SinGhost *g1 = new SinGhost(200,200,70,70,"ghost1.png",5,renderer);
+    SinGhost *g2 = new SinGhost(200,800,70,70,"ghost1.png",5,renderer);
+    SinGhost *g3 = new SinGhost(1600,200,70,70,"ghost1.png",5,renderer);
+    SinGhost *g4 = new SinGhost(1600,800,70,70,"ghost1.png",5,renderer);
+    SinGhost *g5 = new SinGhost(1600,500,70,70,"ghost1.png",5,renderer);
+    SinGhost *g6 = new SinGhost(200,500,70,70,"ghost1.png",5,renderer);
+    ghosts.push_back(g1);ghosts.push_back(g2);ghosts.push_back(g3);ghosts.push_back(g4);ghosts.push_back(g5);ghosts.push_back(g6);
     p = new Player(880,460,80,80,"mario.png",renderer);
 }
 
