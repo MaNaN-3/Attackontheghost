@@ -1,4 +1,4 @@
-#include "String_check.hpp"
+#include "include/String_check.hpp"
 
 String_check::String_check(int length_)
 {
@@ -45,16 +45,4 @@ bool String_check::check_string(string s)
     }
 
     return false;
-}
-
-int main()
-{
-    String_check *sc = new String_check(3);
-    vector<string> s = sc->produce_string(15);
-    
-    for(auto it:s)
-    {
-        cout<<it<<endl;
-    }
-    return 0;
 }
