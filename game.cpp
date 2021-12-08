@@ -15,7 +15,7 @@ SDL_Rect destR;
 vector <Ghost*> ghosts;
 Player *p;
 SDL_Texture *backgroundTexture;
-SDL_Surface *background=IMG_Load("background2.jpeg");
+SDL_Surface *background=SDL_LoadBMP("background1.bmp");
 
 void Game::hehe()
 {
@@ -115,7 +115,11 @@ void Game::update()
         if(ghosts[i]!=NULL)
         {
             bool hemlo=ghosts[i]->update();
-            ghosts[i]->animate("ghost.png","ghost1.png");
+            if(ghosts[i]->getInitialisedX()>resolutionX/2){
+                ghosts[i]->animate("ghost2.png","ghost3.png");
+            }
+            else
+                ghosts[i]->animate("ghost2.png","ghost3.bmp");
             if(hemlo==true)
             {
                 ghosts[i]=NULL;

@@ -20,6 +20,8 @@ class Ghost
         int get_height(){ return height; }
         int get_width(){ return width; }
         float get_xvel(){ return x_vel; }
+
+        int getInitialisedX(){ return initialisedX; }
         void render();
         virtual bool update();
         virtual void animate(const char* image1="ghost1.png",const char* image2="ghost.png");
