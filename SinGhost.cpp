@@ -2,24 +2,31 @@
 #include "Ghost.hpp"
 #include "SinGhost.hpp"
 #include <cmath>
-#define heroX 960
+#define resolutionX 1200
+#define resolutionY 900
+#define heroX resolutionX/2
+#define heroY resolutionY/2
 
 SinGhost::SinGhost(float x, float y,int height,int width,string image,float x_vel,SDL_Renderer *renderer):Ghost(x,y,height,width,image,x_vel,renderer)
 {
     counter=0;
+    // SDL_RenderClear(renderer);
+    Ghost::render();
+    SDL_RenderPresent(renderer);
+    // SDL_Delay(1000);
 }
 
 bool SinGhost::update()
 { 
-    if(initialisedX<900)
+    if(initialisedX<resolutionX/2)
     {
         x+=x_vel;
-        y=initialisedY+((initialisedY-500)/(initialisedX-960))*(x-initialisedX)+100*sin(2*(2 * acos(0.0))*(x)/100);
+        y=initialisedY+((initialisedY-resolutionY/2)/(initialisedX-resolutionX/2))*(x-initialisedX)+100*sin(2*(2 * acos(0.0))*(x)/100);
     }    
     else
     {
         x-=x_vel;
-        y=initialisedY+((initialisedY-500)/(initialisedX-960))*(x-initialisedX)+100*sin(2*(2 * acos(0.0))*(x)/100);   
+        y=initialisedY+((initialisedY-resolutionY/2)/(initialisedX-resolutionX/2))*(x-initialisedX)+100*sin(2*(2 * acos(0.0))*(x)/100);   
     } 
         
     destR.h=height; destR.w=width;
@@ -33,7 +40,7 @@ bool SinGhost::update()
 
 void SinGhost::animate(const char* image1,const char* image2)
 {
-    if(abs(heroX-x)<960)
+    if(abs(heroX-x)<resolutionX/2)
     {
         if(((int)(x/20))%2==0)
             tmpSurface=IMG_Load(image1);

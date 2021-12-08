@@ -1,73 +1,3 @@
-<<<<<<< HEAD
-#include"game.hpp"
-#include "Ghost.hpp"
-#include "SinGhost.hpp"
-#include<iostream>
-#define ghostHeight 70
-#define ghostWidth 70
-
-SDL_Texture* playerTex; 
-SDL_Rect destR;
-SinGhost *g;
-Ghost *g1;
-Game:: Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen){
-    windowWidth=width; windowHeight=height;
-    cout<<windowWidth << " "<<windowHeight<<endl;
-    int flag=0;
-    if(fullscreen){
-        flag=SDL_WINDOW_FULLSCREEN;
-    }
-
-    if(SDL_Init(SDL_INIT_EVERYTHING)==0){
-        cout<<"SDL is initialised\n";
-
-        window=SDL_CreateWindow(title,positionX,positionY,width,height,flag);
-        renderer=SDL_CreateRenderer(window,-1,0);
-        SDL_SetRenderDrawColor(renderer,255,255,0,255); 
-        isRunning=true;
-    }
-
-    else{
-        isRunning=false;
-    };  
-
-    g = new SinGhost(0,360,70,70,"images/ghost.png",3.5,renderer);
-    g1 = g;
-}
-Game:: ~Game(){};
-
-void Game::render(){
-
-    SDL_RenderClear(renderer);
-    g1->render();
-    SDL_RenderPresent(renderer);
-}
-
-void Game::eventHandler(){
-
-    SDL_Event event;
-    SDL_PollEvent(&event);
-    switch(event.type){
-        case SDL_QUIT:
-            isRunning=false;
-            break;
-        case SDL_KEYDOWN:
-            isRunning=false;
-        default:
-            break;
-    }
-
-}
-
-bool Game::running(){
-    return isRunning;
-}
-
-void Game::update(){
-    g1->update();
-    g1->animate("ghost.png","ghost1.png");
-    
-=======
 #include"game.hpp"
 #include "Ghost.hpp"
 #include "SinGhost.hpp"
@@ -75,13 +5,17 @@ void Game::update(){
 #include<iostream>
 #define ghostHeight 70
 #define ghostWidth 70
-#define heroX 960
+#define resolutionX 1200
+#define resolutionY 900
+#define heroX resolutionX/2
+#define heroY resolutionY/2
 
 SDL_Texture* playerTex; 
 SDL_Rect destR;
 vector <Ghost*> ghosts;
 Player *p;
-
+SDL_Texture *backgroundTexture;
+SDL_Surface *background=IMG_Load("background2.jpeg");
 
 void Game::hehe()
 {
@@ -90,14 +24,20 @@ void Game::hehe()
 
 void Game::ghostHandler()
 {
-    SinGhost *g1 = new SinGhost(200,200,70,70,"ghost1.png",5,renderer);
-    SinGhost *g2 = new SinGhost(200,800,70,70,"ghost1.png",5,renderer);
-    SinGhost *g3 = new SinGhost(1600,200,70,70,"ghost1.png",5,renderer);
-    SinGhost *g4 = new SinGhost(1600,800,70,70,"ghost1.png",5,renderer);
-    SinGhost *g5 = new SinGhost(1600,500,70,70,"ghost1.png",5,renderer);
-    SinGhost *g6 = new SinGhost(200,500,70,70,"ghost1.png",5,renderer);
-    ghosts.push_back(g1);ghosts.push_back(g2);ghosts.push_back(g3);ghosts.push_back(g4);ghosts.push_back(g5);ghosts.push_back(g6);
-    p = new Player(880,460,80,80,"mario.png",renderer);
+    SinGhost *g1 = new SinGhost(0,0,ghostHeight,ghostWidth,"ghost1.png",0.5,renderer);
+    // SDL_Delay(1000);
+    SinGhost *g2 = new SinGhost(0,heroY,ghostHeight,ghostWidth,"ghost1.png",0.5,renderer);
+    // SDL_Delay(1000);
+    SinGhost *g3 = new SinGhost(resolutionX-ghostWidth,0,ghostHeight,ghostWidth,"ghost1.png",0.5,renderer);
+
+    ghosts.push_back(g1);
+    ghosts.push_back(g2);
+    ghosts.push_back(g3);
+
+    p = new Player(heroX,heroY,80,80,"mario.png",renderer);
+    p->update();
+    p->animate();
+
 }
 
 Game:: Game(const char * title,int positionX,int positionY,int width,int height,bool fullscreen)
@@ -115,6 +55,9 @@ Game:: Game(const char * title,int positionX,int positionY,int width,int height,
         window=SDL_CreateWindow(title,positionX,positionY,width,height,flag);
         renderer=SDL_CreateRenderer(window,-1,0);
         SDL_SetRenderDrawColor(renderer,255,255,0,255); 
+        
+        // SDL_Texture *texture;
+        backgroundTexture= SDL_CreateTextureFromSurface(renderer,background);
         isRunning=true;
     }
 
@@ -131,6 +74,8 @@ Game:: ~Game(){};
 void Game::render()
 {
     SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, backgroundTexture, NULL, NULL);
+    p->render();
     for(int i=0;i<ghosts.size();i++)
     {
         if(ghosts[i]!=NULL)
@@ -138,7 +83,6 @@ void Game::render()
             ghosts[i]->render();
         }
     }
-    p->render();
     SDL_RenderPresent(renderer);
 }
 
@@ -178,7 +122,7 @@ void Game::update()
             }
         }
     }
-    p->update();
-    p->animate();    
->>>>>>> b5ca5d4f23a7af9945d2eb8185a5af0730f24252
+    if(ghosts.size()==0){
+        isRunning=false;
+    }    
 }

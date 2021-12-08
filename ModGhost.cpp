@@ -1,7 +1,10 @@
 #include <bits/stdc++.h>
 #include "Ghost.hpp"
 #include "ModGhost.hpp"
-#define heroX 960
+#define resolutionX 1200
+#define resolutionY 900
+#define heroX resolutionX/2
+#define heroY resolutionY/2
 #include <cmath>
 
 
